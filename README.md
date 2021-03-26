@@ -84,8 +84,9 @@ BPE=../../subword-nmt
 NEMATUS=../../nematus
 ```
 4. make the script executable with the command `chmod +x ./<SCRIPT>`
-5. **unzip the `.train.gz` files** in `code-docstring-corpus/parallel-corpus`
-6. run the script with the command `./<SCRIPT>`
+5. **decompress the `.train.gz` files** in `code-docstring-corpus/parallel-corpus` with the command `gzip -dk file.gz`. 
+We use the `-k` so as not to remove the compressed files.
+7. run the script with the command `./<SCRIPT>`
 
 ### 3: Train the nmt model:
 1. Get the appropriate script in `code-docstring-corpus/scripts/nmt/`. Your options are `train_declbodies2desc.sh`, 
