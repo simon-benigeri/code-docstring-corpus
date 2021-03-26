@@ -51,9 +51,13 @@ We also used the code2doc model to generate the docstring corpus from the code-o
 
 Bleu scores are computed using Moses multi-bleu.perl script
 
-### Tutorial
+## Tutorial
+The following Tutorial shows you how to:
+1. install
+2. preprocess the parallel corpus
+3. train a model
 
-#### Install Nematus and scripts for preprocessing:
+### 1. Install Nematus and scripts for preprocessing:
 **mosesdecoder** (just for preprocessing, no installation required)  
 `git clone https://github.com/moses-smt/mosesdecoder`  
 **subword-nmt** (for BPE segmentation)  
@@ -61,11 +65,11 @@ Bleu scores are computed using Moses multi-bleu.perl script
 **Nematus**  
 `git clone https://www.github.com/rsennrich/nematus` 
 
-##### Preprocess the parallel corpus:
+### 2: Preprocess the parallel corpus:
 1. Get the appropriate script in `code-docstring-corpus/scripts/nmt/`. Your options are `prepare_data_declbodies2desc.sh`, 
 `prepare_data_decldesc2bodies.sh`, `prepare_data_desc2declbodies.sh`, `prepare_data_mono_declbodies2desc.sh`
-2. Move the script in to the directory containing the data: `code-docstring-corpus/parallel-corpus`
-3. Adapt the script to your project directory structure by changing `/path/to` in the following lines at the top:   
+2. If it is not already there, copy the script to the directory containing the data: `code-docstring-corpus/parallel-corpus`
+3. In `code-docstring-corpus/parallel-corpus`, adapt the script to your project directory structure by changing `/path/to` in the following lines at the top:    
 ```
 # Insert paths to tools
 MOSES=/path/to/moses
@@ -80,11 +84,58 @@ BPE=../../subword-nmt
 NEMATUS=../../nematus
 ```
 4. make the script executable with the command `chmod +x ./<SCRIPT>`
-5. **unzip the `.train.gz` files** in `code-docstring-corpus/parallel-corpus`
-6. run the script with the command `./<SCRIPT>`
+5. **decompress the `.train.gz` files** in `code-docstring-corpus/parallel-corpus` with the command `gzip -dk file.gz`. 
+We use the `-k` so as not to remove the compressed files.
+7. run the script with the command `./<SCRIPT>`
 
-##### Train the nmt model:
-1. stuff
+### 3: Train the nmt model:
+1. Get the appropriate script in `code-docstring-corpus/scripts/nmt/`. Your options are `train_declbodies2desc.sh`, 
+`train_decldesc2bodies.sh`, `train_desc2declbodies.sh`, `train_decldesc2bodies_backtransl.sh`
+2. If it is not already there, copy the script to the directory containing the data: `code-docstring-corpus/parallel-corpus`
+3. In `code-docstring-corpus/parallel-corpus`, adapt the script to your project directory structure by changing `/path/to` in the following lines at the top: 
+```
+# Insert paths to nematus
+NEMATUS=/path/to/nematus
+```
+For example,
+```
+# Insert paths to nematus
+NEMATUS=../../nematus
+```
+4. Edit hyperparameters as needed. 
+**Note**: You can remove `--max_epoch=10` at the very end of the script. We use it for testing the code.
+```
+$NEMATUS/nematus/nmt.py \
+  --model data_ps.desc2declbodies.model.npz \
+  --datasets data_ps.desc2declbodies.train.bpe.clean.d data_ps.desc2declbodies.train.bpe.clean.db \
+  --valid_datasets data_ps.desc2declbodies.valid.bpe.d data_ps.desc2declbodies.valid.bpe.db \
+  --dictionaries data_ps.desc2declbodies.train.bpe.clean.merged.json data_ps.desc2declbodies.train.bpe.clean.merged.json \
+  --objective CE \
+  --dim_word 400 \
+  --dim 800 \
+  --n_words_src 89500 \
+  --n_words 89500 \
+  --maxlen 300 \
+  --batch_size 20 \
+  --valid_batch_size 1 \
+  --optimizer adam \
+  --lrate 0.0001 \
+  --validFreq 10000 \
+  --dispFreq 1000 \
+  --saveFreq=30000 \
+  --sampleFreq=10000 \
+  --use_dropout \
+  --dropout_embedding=0.2 \
+  --dropout_hidden=0.2 \
+  --dropout_source=0.1 \
+  --dropout_target=0.1 \
+  --encoder_truncate_gradient 200 \
+  --decoder_truncate_gradient 200 \
+  --reload \
+  --max_epoch=10
+```
+5. make the script executable with the command `chmod +x ./<SCRIPT>`
+6. run the script with the command `./<SCRIPT>`
 
 ### Reference
 
