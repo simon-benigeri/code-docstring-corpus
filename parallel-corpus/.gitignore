@@ -5,7 +5,7 @@ data_ps.declbodies.train
 
 # we ignore the files produced by the preprocessing scripts
 # add your prefix here
-# data_ps.decldesc2bodies*
-# data_ps.declbodies2desc*
-# data_mono_ps.declbodies2desc*
-# data_ps.desc2declbodies*
+data_ps.decldesc2bodies*
+data_ps.declbodies2desc*
+data_mono_ps.declbodies2desc*
+data_ps.desc2declbodies*
