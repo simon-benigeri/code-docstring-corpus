@@ -105,12 +105,17 @@ NEMATUS=../../nematus
 4. Edit hyperparameters as needed. 
 **Note**: You can remove `--max_epoch=10` at the very end of the script. We use it for testing the code.
 ```
+#!/bin/bash
+
+# Insert paths to nematus
+NEMATUS=../../nematus
+
+
 $NEMATUS/nematus/nmt.py \
   --model data_ps.desc2declbodies.model.npz \
   --datasets data_ps.desc2declbodies.train.bpe.clean.d data_ps.desc2declbodies.train.bpe.clean.db \
   --valid_datasets data_ps.desc2declbodies.valid.bpe.d data_ps.desc2declbodies.valid.bpe.db \
   --dictionaries data_ps.desc2declbodies.train.bpe.clean.merged.json data_ps.desc2declbodies.train.bpe.clean.merged.json \
-  --objective CE \
   --dim_word 400 \
   --dim 800 \
   --n_words_src 89500 \
@@ -124,14 +129,10 @@ $NEMATUS/nematus/nmt.py \
   --dispFreq 1000 \
   --saveFreq=30000 \
   --sampleFreq=10000 \
-  --use_dropout \
   --dropout_embedding=0.2 \
   --dropout_hidden=0.2 \
   --dropout_source=0.1 \
   --dropout_target=0.1 \
-  --encoder_truncate_gradient 200 \
-  --decoder_truncate_gradient 200 \
-  --reload \
   --max_epoch=10
 ```
 5. make the script executable with the command `chmod +x ./<SCRIPT>`
