@@ -51,6 +51,41 @@ We also used the code2doc model to generate the docstring corpus from the code-o
 
 Bleu scores are computed using Moses multi-bleu.perl script
 
+### Tutorial
+
+#### Install Nematus and scripts for preprocessing:
+**mosesdecoder** (just for preprocessing, no installation required)  
+`git clone https://github.com/moses-smt/mosesdecoder`  
+**subword-nmt** (for BPE segmentation)  
+`git clone https://github.com/rsennrich/subword-nmt`  
+**Nematus**  
+`git clone https://www.github.com/rsennrich/nematus` 
+
+##### Preprocess the parallel corpus:
+1. Get the appropriate script in `code-docstring-corpus/scripts/nmt/`. Your options are `prepare_data_declbodies2desc.sh`, 
+`prepare_data_decldesc2bodies.sh`, `prepare_data_desc2declbodies.sh`, `prepare_data_mono_declbodies2desc.sh`
+2. Move the script in to the directory containing the data: `code-docstring-corpus/parallel-corpus`
+3. Adapt the script to your project directory structure by changing `/path/to` in the following lines at the top:   
+```
+# Insert paths to tools
+MOSES=/path/to/moses
+BPE=/path/to/bpe
+NEMATUS=/path/to/nematus
+```
+For example, 
+```
+# Insert paths to tools
+MOSES=../../mosesdecoder
+BPE=../../subword-nmt
+NEMATUS=../../nematus
+```
+4. make the script executable with the command `chmod +x ./<SCRIPT>`
+5. **unzip the `.train.gz` files** in `code-docstring-corpus/parallel-corpus`
+6. run the script with the command `./<SCRIPT>`
+
+##### Train the nmt model:
+1. stuff
+
 ### Reference
 
 If you use this corpus for a scientific publication, please cite: Miceli Barone, A. V. and Sennrich, R., 2017 "A parallel corpus of Python functions and documentation strings for automated code documentation and code generation" arXiv:1707.02275 https://arxiv.org/abs/1707.02275
