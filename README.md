@@ -68,8 +68,8 @@ The following Tutorial shows you how to:
 ### 2: Preprocess the parallel corpus:
 1. Get the appropriate script in `code-docstring-corpus/scripts/nmt/`. Your options are `prepare_data_declbodies2desc.sh`, 
 `prepare_data_decldesc2bodies.sh`, `prepare_data_desc2declbodies.sh`, `prepare_data_mono_declbodies2desc.sh`
-2. Move the script in to the directory containing the data: `code-docstring-corpus/parallel-corpus`
-3. Adapt the script to your project directory structure by changing `/path/to` in the following lines at the top:   
+2. If it is not already there, copy the script to the directory containing the data: `code-docstring-corpus/parallel-corpus`
+3. In `code-docstring-corpus/parallel-corpus`, adapt the script to your project directory structure by changing `/path/to` in the following lines at the top:    
 ```
 # Insert paths to tools
 MOSES=/path/to/moses
@@ -90,8 +90,8 @@ NEMATUS=../../nematus
 ### 3: Train the nmt model:
 1. Get the appropriate script in `code-docstring-corpus/scripts/nmt/`. Your options are `train_declbodies2desc.sh`, 
 `train_decldesc2bodies.sh`, `train_desc2declbodies.sh`, `train_decldesc2bodies_backtransl.sh`
-2. Move the script in to the directory containing the data: `code-docstring-corpus/parallel-corpus`
-3. Adapt the script to your project directory structure by changing `/path/to` in the following lines at the top: 
+2. If it is not already there, copy the script to the directory containing the data: `code-docstring-corpus/parallel-corpus`
+3. In `code-docstring-corpus/parallel-corpus`, adapt the script to your project directory structure by changing `/path/to` in the following lines at the top: 
 ```
 # Insert paths to nematus
 NEMATUS=/path/to/nematus
