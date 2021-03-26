@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Insert paths to nematus
-NEMATUS=../../nematus/nematus
+NEMATUS=../../nematus
 
 
 $NEMATUS/nematus/nmt.py \
