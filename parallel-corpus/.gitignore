@@ -1,0 +1,11 @@
+# we ignore the unzipped *train.gz files
+data_ps.all.train
+data_ps.bodies.train
+data_ps.declbodies.train
+
+# we ignore the files produced by the preprocessing scripts
+# add your prefix here
+# data_ps.decldesc2bodies*
+# data_ps.declbodies2desc*
+# data_mono_ps.declbodies2desc*
+# data_ps.desc2declbodies*
